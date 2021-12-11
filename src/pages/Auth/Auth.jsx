@@ -2,13 +2,30 @@ import logo from '../../images/logo.svg'
 import fbLogo from '../../images/fb-logo.svg'
 import { Bottom, Desc, ImageCover, Login, LoginButton, Logo, Title, Wrapper } from './style'
 
+import { getAuth, signInWithPopup } from "firebase/auth";
+import { provider } from '../../firebase/config';
+
+
 const Auth = () => {
+  const auth = getAuth();
+
+  const login = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const user = result.user;
+        console.log(user)
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+  }
+
   return (
     <Wrapper>
       <Login>
         <Logo src={logo} alt="logo" />
         <Title>Xin chào Gapoer!</Title>
-        <LoginButton>
+        <LoginButton onClick={login}>
           <img src={fbLogo} alt="facebook logo" />
           <strong>Đăng nhập với Facebook</strong>
         </LoginButton>
