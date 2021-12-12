@@ -7,7 +7,12 @@ export const Wrapper = styled.div`
   align-items: center;
   background: #fff;
   position: relative;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.05);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
   & > div.flex {
     display: flex;
     align-items: center;

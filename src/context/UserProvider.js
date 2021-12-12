@@ -18,7 +18,7 @@ export const UserProvider = ({ children }) => {
         navigate("/auth", { replace: true });
       }
     });
-  }, []);
+  }, [auth]);
 
   return (
     <userContext.Provider value={{ user }}>{children}</userContext.Provider>

@@ -10,5 +10,5 @@ const firebaseConfig = {
   appId: "1:131982778439:web:1834def93da7510fb2d162",
 };
 
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 export const provider = new FacebookAuthProvider();

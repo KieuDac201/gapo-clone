@@ -7,9 +7,9 @@ import { provider } from '../../firebase/config';
 
 
 const Auth = () => {
-  const auth = getAuth();
 
   const login = () => {
+    const auth = getAuth();
     signInWithPopup(auth, provider)
       .then((result) => {
         const user = result.user;

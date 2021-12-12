@@ -13,6 +13,7 @@ a {
 }
 img {
   max-width: 100%;
+  object-fit: cover;
 }
 h3 {
   color: pink;
@@ -21,8 +22,15 @@ h3 {
 }
 button {
   cursor: pointer;
+  border: none;
+  outline: none;
 }
 ul,
 li {
   list-style: none;
+}
+input,
+textarea {
+  border: none;
+  outline: none;
 }
