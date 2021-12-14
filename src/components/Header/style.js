@@ -16,6 +16,13 @@ export const Wrapper = styled.div`
   & > div.flex {
     display: flex;
     align-items: center;
+    position: relative;
+  }
+  .user-option {
+    width: 243px;
+    position: absolute;
+    top: 50px;
+    right: 0;
   }
 `;
 export const Logo = styled.img`
@@ -25,6 +32,9 @@ export const User = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  position: relative;
+  cursor: pointer;
+
   img {
     width: 36px;
     height: 36px;

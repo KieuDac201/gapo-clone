@@ -1,40 +1,46 @@
 import { GiEarthAsiaOceania } from 'react-icons/gi'
 import { HiOutlineDotsHorizontal } from 'react-icons/hi'
-import likeIcon from '../../images/like-circle.svg'
 import { BiLike, BiComment, BiShare } from 'react-icons/bi'
 import { MdTagFaces } from 'react-icons/md'
 import { Action, Actions, Caption, Comment, Image, LikeAndCmt, ReactList, Top, Wrapper } from './styled'
-import { likeReact, hahaReact, angryReact, wowReact, sadReact, loveReact } from '../../images'
+import { likeReact, hahaReact, angryReact, wowReact, sadReact, loveReact, objectReactIcon } from '../../images'
 import { useContext } from 'react'
 import { userContext } from '../../context/UserProvider'
+import { handleReactsList, handleSumReacts } from '../../utils'
+import { useDispatch } from 'react-redux'
 
-const Post = () => {
-
+const Post = ({ post }) => {
+  const { nameAuthor, imgAuthor, image, caption, comments, time, reacts, id } = post
   const { user } = useContext(userContext)
+
   return (
     <Wrapper>
       <Top>
-        <img src="https://cdn-thumb-image-5.gapo.vn/750x0/smart/64a10504-eda0-430f-9eec-9063c4b05a18.jpeg" alt="" />
+        <img src={imgAuthor} alt="" />
         <div className="nameAndTime">
-          <h5>Kieu Dai Dac</h5>
-          <p>10 phút trước <GiEarthAsiaOceania /></p>
+          <h5>{nameAuthor}</h5>
+          <p>{ }<GiEarthAsiaOceania /></p>
         </div>
         <div className='more'>
           <HiOutlineDotsHorizontal />
         </div>
-      </Top>
-      <Caption>Cảm ơn em đã luôn mạnh mẽ trong thời gian qua … yêu em 🖤</Caption>
-      <Image src="https://cdn-thumb-image-5.gapo.vn/750x0/smart/64a10504-eda0-430f-9eec-9063c4b05a18.jpeg" />
+      </Top >
+      <Caption>{caption}</Caption>
+      <Image src={image} />
       <LikeAndCmt>
         <div className='like'>
           <div className='icon'>
-            <img src={likeIcon} alt="" />
-            <img src={likeIcon} alt="" />
-            <img src={likeIcon} alt="" />
+            {/* {
+              handleReactsList(reacts).map(react => {
+
+                return <img key={react[0]} src={objectReactIcon[react[0]]} alt={react[0]} />
+
+              })
+            } */}
           </div>
-          <p>128</p>
+          {/* <p>{reacts.length}</p> */}
         </div>
-        <p>0 comment</p>
+        <p>{comments.length} bình luận</p>
       </LikeAndCmt>
       <Actions>
         <Action className='like'>
@@ -65,7 +71,7 @@ const Post = () => {
           <MdTagFaces />
         </div>
       </Comment>
-    </Wrapper>
+    </Wrapper >
   )
 }
 

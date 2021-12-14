@@ -15,11 +15,7 @@ img {
   max-width: 100%;
   object-fit: cover;
 }
-h3 {
-  color: pink;
-  text-align: center;
-  padding: 50px 20px;
-}
+
 button {
   cursor: pointer;
   border: none;

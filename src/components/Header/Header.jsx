@@ -1,12 +1,13 @@
-import { memo, useContext } from 'react'
+import { memo, useContext, useState } from 'react'
 import { userContext } from '../../context/UserProvider'
 import logo from '../../images/logo.svg'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { Button, Logo, Nav, NavItem, Search, User, Wrapper } from './style'
+import UserOption from '../UserOption/UserOption'
 
 const Header = () => {
   const { user } = useContext(userContext)
-  console.log(user)
+  const [showUserOption, setShowUserOption] = useState(false)
   return (
     <Wrapper>
       <div className='flex'>
@@ -41,11 +42,16 @@ const Header = () => {
         <Button>
           <svg width="40" height="40" viewBox="0 0 40 40" fill="none" alt="Notifications" className="header__logo--notifications"><rect width="40" height="40" rx="20" fill="#E7E7E7"></rect><g clipPath="url(#clip0)"><path d="M28.5712 25.2384C28.1924 25.2384 27.829 25.0879 27.5611 24.82C27.2932 24.5521 27.1427 24.1887 27.1427 23.8098V19.1793C27.1977 17.3709 26.6038 15.6024 25.4684 14.1936C24.333 12.7849 22.7311 11.8289 20.9522 11.4984V9.5241C20.9522 9.27151 20.8519 9.02927 20.6733 8.85066C20.4946 8.67206 20.2524 8.57172 19.9998 8.57172C19.7472 8.57172 19.505 8.67206 19.3264 8.85066C19.1478 9.02927 19.0474 9.27151 19.0474 9.5241V11.4984C17.2686 11.8289 15.6666 12.7849 14.5312 14.1936C13.3959 15.6024 12.802 17.3709 12.857 19.1793V23.8098C12.857 24.1887 12.7065 24.5521 12.4385 24.82C12.1706 25.0879 11.8073 25.2384 11.4284 25.2384C11.1758 25.2384 10.9336 25.3387 10.755 25.5173C10.5764 25.6959 10.476 25.9382 10.476 26.1908C10.476 26.4434 10.5764 26.6856 10.755 26.8642C10.9336 27.0428 11.1758 27.1431 11.4284 27.1431H28.5712C28.8238 27.1431 29.0661 27.0428 29.2447 26.8642C29.4233 26.6856 29.5236 26.4434 29.5236 26.1908C29.5236 25.9382 29.4233 25.6959 29.2447 25.5173C29.0661 25.3387 28.8238 25.2384 28.5712 25.2384Z" fill="#1A1A1A"></path><path d="M22.1293 28.5717H17.8703C17.8118 28.5718 17.7554 28.5934 17.7119 28.6324C17.6683 28.6714 17.6406 28.7251 17.6341 28.7831C17.6237 28.871 17.6186 28.9594 17.6188 29.0479C17.6188 29.6794 17.8697 30.285 18.3162 30.7315C18.7627 31.178 19.3683 31.4289 19.9998 31.4289C20.6313 31.4289 21.2369 31.178 21.6834 30.7315C22.1299 30.285 22.3807 29.6794 22.3807 29.0479C22.381 28.9594 22.3759 28.871 22.3655 28.7831C22.3594 28.7249 22.3318 28.671 22.2881 28.6319C22.2445 28.5929 22.1879 28.5714 22.1293 28.5717Z" fill="#1A1A1A"></path></g><defs><clipPath id="clip0"><rect x="8.57123" y="8.57172" width="22.8571" height="22.8571" fill="white"></rect></clipPath></defs></svg>      </Button>
         {user &&
-          <User>
+          <User onClick={() => setShowUserOption(true)}>
             <img src={user.photoURL} alt="" />
             <h5>{user.displayName}</h5>
+
           </User>
+
         }
+        {showUserOption && user && <div className='user-option'>
+          <UserOption setShowUserOption={setShowUserOption} />
+        </div>}
       </div>
     </Wrapper>
   )

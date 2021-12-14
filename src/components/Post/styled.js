@@ -139,7 +139,7 @@ export const ReactList = styled.div`
   gap: 8px;
   position: absolute;
   top: -140%;
-  left: -30px;
+  left: 0px;
   background: #fff;
   padding: 5px 7px;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);

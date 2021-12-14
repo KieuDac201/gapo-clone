@@ -1,26 +1,25 @@
-import { getAuth, signOut } from "firebase/auth";
-import { useState } from "react";
-import { Link, Navigate } from "react-router-dom"
-import styled from "styled-components";
+import { getAuth } from "firebase/auth";
+import { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import ModalPost from "../../components/ModalPost/ModalPost";
-import NewFeed from "../../components/NewFeed/NewFeed";
 import PublishPost from "../../components/PublishPost/PublishPost";
+import Post from '../../components/Post/Post'
+import { NewFeed, Wrapper } from "./style";
+import { getPost } from "../../services";
+
 
 const Home = () => {
   const [showModal, setShowModal] = useState(false)
-  const auth = getAuth();
 
-  const logOut = () => {
-    signOut(auth)
-      .then(() => {
-        console.log('log out')
+  const [posts, setPosts] = useState([])
 
-      })
-      .catch((error) => {
-        console.log('log out error')
-      });
-  };
+  useEffect(() => {
+    getPost().then(data => {
+      setPosts(data)
+    })
+  }, [])
+
+
 
   const handleCloseModal = (cap, file) => {
     if (cap || file) {
@@ -36,12 +35,17 @@ const Home = () => {
   return (
     <Wrapper>
       <Header />
-      {showModal && <ModalPost handleCloseModal={handleCloseModal} setShowModal={setShowModal} />}
+      {showModal && <ModalPost handleCloseModal={handleCloseModal} setShowModal={setShowModal} setPosts={setPosts} />}
       <section className="newFeed">
         <PublishPost setShowModal={setShowModal} />
-        <NewFeed />
+        <NewFeed>
+          {
+            posts ? posts.map(post => {
+              return <Post key={post.id} post={post} />
+            }) : <h3 className="no-post">Không có bài viết nào ở đây</h3>
+          }
+        </NewFeed>
       </section>
-      <button onClick={logOut} style={{ position: 'fixed', zIndex: 100 }}>log out </button>
 
     </Wrapper>
   )
@@ -49,16 +53,4 @@ const Home = () => {
 
 export default Home
 
-const Wrapper = styled.div`
-  .newFeed{
-    position: relative;
-    top: 80px;
-    left: 50%;
-    transform: translateX(-50%);
-    max-width: 420px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-`
+
