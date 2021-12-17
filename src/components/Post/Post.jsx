@@ -6,8 +6,6 @@ import { Action, Actions, Caption, Comment, Image, LikeAndCmt, ReactList, Top, W
 import { likeReact, hahaReact, angryReact, wowReact, sadReact, loveReact, objectReactIcon } from '../../images'
 import { useContext } from 'react'
 import { userContext } from '../../context/UserProvider'
-import { handleReactsList, handleSumReacts } from '../../utils'
-import { useDispatch } from 'react-redux'
 
 const Post = ({ post }) => {
   const { nameAuthor, imgAuthor, image, caption, comments, time, reacts, id } = post
