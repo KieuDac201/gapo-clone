@@ -1,5 +1,5 @@
-import { useContext, useRef, useState } from "react"
-import { userContext } from '../../context/UserProvider'
+import { useRef, useState } from "react"
+import { useUserContext } from '../../context/UserProvider'
 import { GiEarthAsiaOceania } from 'react-icons/gi'
 import { IoMdClose } from 'react-icons/io'
 import { MdTagFaces } from 'react-icons/md'
@@ -7,12 +7,11 @@ import Button from '../Button/Button'
 import Picker from 'emoji-picker-react';
 import picVideoImg from '../../images/picture-video.svg'
 import { Actions, Caption, Emoji, Modal, Overlay, PreviewImg, Top, UploadImg, Wrapper } from "./style"
-import { v4 as uuid } from 'uuid'
 import { addPost } from "../../services"
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage"
 
 const ModalPost = ({ handleCloseModal, setShowModal, setPosts }) => {
-  const { user } = useContext(userContext)
+  const user = useUserContext()
   const [caption, setCaption] = useState('')
   const [showPicker, setShowPicker] = useState(false)
   const [fileImage, setFileImage] = useState(null)
@@ -37,43 +36,56 @@ const ModalPost = ({ handleCloseModal, setShowModal, setPosts }) => {
   }
 
   const handleSubmit = async () => {
-
+    if (loading.loading) {
+      return
+    }
     if (caption || imgPreview) {
+      const postInfo = {
+        nameAuthor: user.displayName,
+        imgAuthor: user.photoURL,
+        uid: user.uid,
+        like: {},
+        caption,
+        image: '',
+        comments: [],
+        reacts: [],
+        time: Date.now()
+      }
       setLoading({ loading: true, progress: null })
-      const storage = getStorage();
-      const storageRef = ref(storage, `images/${fileImage.name}`);
-      const uploadTask = uploadBytesResumable(storageRef, fileImage);
-
-      uploadTask.on('state_changed',
-        (snapshot) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          setLoading({ loading: true, progress: progress })
-        },
-        (error) => {
+      if (caption && !imgPreview) {
+        setLoading({ loading: false, progress: null })
+        addPost(postInfo).then(data => {
+          console.log(data)
+          setPosts((prevState) => [...prevState, data])
           setShowModal(false)
           setLoading({ loading: false, progress: null })
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            const postInfo = {
-              id: uuid(),
-              nameAuthor: user.displayName,
-              imgAuthor: user.photoURL,
-              uid: user.uid,
-              caption,
-              image: downloadURL,
-              comments: [],
-              reacts: [],
-              time: new Date().toDateString()
-            }
-            setLoading({ loading: false, progress: null })
-            addPost(postInfo)
-            setPosts((prevState) => [...prevState, postInfo])
-            setShowModal(false)
+        })
+      } else {
+        const storage = getStorage();
+        const storageRef = ref(storage, `images/${fileImage.name}`);
+        const uploadTask = uploadBytesResumable(storageRef, fileImage);
 
-          });
-        }
-      );
+        uploadTask.on('state_changed',
+          (snapshot) => {
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            setLoading({ loading: true, progress: progress })
+          },
+          (error) => {
+            setShowModal(false)
+            setLoading({ loading: false, progress: null })
+          },
+          () => {
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+              postInfo.image = downloadURL
+              addPost(postInfo).then(data => {
+                setPosts((prevState) => [...prevState, data])
+                setLoading({ loading: false, progress: null })
+                setShowModal(false)
+              })
+            });
+          }
+        );
+      }
     }
   }
 
@@ -115,7 +127,7 @@ const ModalPost = ({ handleCloseModal, setShowModal, setPosts }) => {
             <input type="file" accept="image/*" ref={inputFileRef} onChange={handleOnChange} />
           </UploadImg>
         </Actions>
-        <Button dark={true} onClick={handleSubmit}>{loading.loading ? 'Đang upload ' + Math.floor(loading.progress) + ' %' : 'Chia sẻ'}</Button>
+        <Button dark={true} onClick={handleSubmit} disabled>{loading.loading ? 'Đang upload ' + Math.floor(loading.progress) + ' %' : 'Chia sẻ'}</Button>
       </Modal>
     </Wrapper>
   )

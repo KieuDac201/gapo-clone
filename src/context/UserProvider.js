@@ -1,4 +1,4 @@
-import { createContext, useState, useLayoutEffect } from "react";
+import { createContext, useState, useLayoutEffect, useContext } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -23,4 +23,9 @@ export const UserProvider = ({ children }) => {
   return (
     <userContext.Provider value={{ user }}>{children}</userContext.Provider>
   );
+};
+
+export const useUserContext = () => {
+  const { user } = useContext(userContext);
+  return user;
 };

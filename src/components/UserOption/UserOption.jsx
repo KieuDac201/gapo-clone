@@ -1,13 +1,12 @@
-import { useContext } from "react"
 import styled from "styled-components"
-import { userContext } from "../../context/UserProvider"
+import { useUserContext } from "../../context/UserProvider"
 import { logOutIcon, userOptionList } from "../../images"
 import { IoMdClose } from 'react-icons/io'
 import { getAuth, signOut } from "firebase/auth"
 
 
 const UserOption = ({ setShowUserOption }) => {
-  const { user } = useContext(userContext)
+  const user = useUserContext()
   const auth = getAuth();
 
   const logOut = () => {
@@ -33,7 +32,7 @@ const UserOption = ({ setShowUserOption }) => {
       </Header>
       <OptionList>
         {userOptionList.map(({ img, text }) => (
-          <Option>
+          <Option key={text}>
             <img src={img} alt={text} />
             <p>{text}</p>
           </Option>

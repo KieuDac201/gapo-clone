@@ -1,12 +1,12 @@
-import { memo, useContext, useState } from 'react'
-import { userContext } from '../../context/UserProvider'
+import { memo, useState } from 'react'
+import { useUserContext } from '../../context/UserProvider'
 import logo from '../../images/logo.svg'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { Button, Logo, Nav, NavItem, Search, User, Wrapper } from './style'
 import UserOption from '../UserOption/UserOption'
 
 const Header = () => {
-  const { user } = useContext(userContext)
+  const user = useUserContext()
   const [showUserOption, setShowUserOption] = useState(false)
   return (
     <Wrapper>

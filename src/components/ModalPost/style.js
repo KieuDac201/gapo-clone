@@ -20,8 +20,8 @@ export const Overlay = styled.div`
 export const Modal = styled.div`
   position: absolute;
   left: 50%;
-  top: 50px;
-  transform: translate(-50%, 0%);
+  top: 50%;
+  transform: translate(-50%, -50%);
   background: #fff;
   border-radius: 5px;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
@@ -64,7 +64,7 @@ export const Top = styled.div`
 `;
 export const Caption = styled.textarea`
   width: 100%;
-  height: 100px;
+  height: 50px;
   resize: none;
 `;
 export const Actions = styled.div`

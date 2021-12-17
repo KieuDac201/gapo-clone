@@ -1,10 +1,9 @@
 import styled from "styled-components"
-import { useContext } from "react"
-import { userContext } from "../../context/UserProvider"
+import { useUserContext } from "../../context/UserProvider"
 import Button from "../Button/Button"
 
 const PublishPost = ({ setShowModal }) => {
-  const { user } = useContext(userContext)
+  const user = useUserContext()
 
   const showModal = () => {
     setShowModal(true)

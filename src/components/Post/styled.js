@@ -94,12 +94,31 @@ export const Action = styled.div`
   &.like:hover ~ .reactList {
     display: flex;
   }
+  &.like.active {
+    color: #6fbe44;
+  }
 
   svg {
     font-size: 18px;
   }
 `;
-export const Comment = styled.div`
+export const CommentList = styled.div`
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  .btn-show {
+    font-size: 12px;
+    color: #6fbe44;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
+
+export const Cmt = styled.div`
   display: flex;
   gap: 10px;
   padding: 5px 12px;
@@ -108,6 +127,10 @@ export const Comment = styled.div`
     width: 32px;
     height: 32px;
     border-radius: 50%;
+  }
+
+  span {
+    cursor: pointer;
   }
 
   & > div {
@@ -129,32 +152,6 @@ export const Comment = styled.div`
       right: 10px;
       top: 50%;
       transform: translateY(-50%);
-    }
-  }
-`;
-
-export const ReactList = styled.div`
-  display: none;
-  align-items: center;
-  gap: 8px;
-  position: absolute;
-  top: -140%;
-  left: 0px;
-  background: #fff;
-  padding: 5px 7px;
-  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 999px;
-
-  &:hover {
-    display: flex;
-  }
-
-  img {
-    height: 40px;
-    &:hover {
-      transform: scale(1.2);
-      cursor: pointer;
-      transition: 0.2s ease;
     }
   }
 `;

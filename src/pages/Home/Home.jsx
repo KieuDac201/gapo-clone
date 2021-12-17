@@ -1,4 +1,3 @@
-import { getAuth } from "firebase/auth";
 import { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import ModalPost from "../../components/ModalPost/ModalPost";
@@ -41,7 +40,7 @@ const Home = () => {
         <NewFeed>
           {
             posts ? posts.map(post => {
-              return <Post key={post.id} post={post} />
+              return <Post key={post.id} post={post} posts={posts} />
             }) : <h3 className="no-post">Không có bài viết nào ở đây</h3>
           }
         </NewFeed>
