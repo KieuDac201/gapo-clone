@@ -5,7 +5,7 @@ import PublishPost from "../../components/PublishPost/PublishPost";
 import Post from '../../components/Post/Post'
 import { NewFeed, Wrapper } from "./style";
 import { getPost } from "../../services";
-
+import { Link } from 'react-router-dom'
 
 const Home = () => {
   const [showModal, setShowModal] = useState(false)

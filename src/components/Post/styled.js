@@ -1,9 +1,20 @@
 import styled from "styled-components";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 export const Wrapper = styled.div`
   background: #fff;
   border-radius: 5px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.05);
+  animation: show 0.2s ease;
+
+  @keyframes show {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
 export const Top = styled.div`
   display: flex;
@@ -38,7 +49,9 @@ export const Caption = styled.p`
   font-size: 14px;
   padding: 0 12px 12px 12px;
 `;
-export const Image = styled.img``;
+export const Image = styled(LazyLoadImage)`
+  width: 100%;
+`;
 export const LikeAndCmt = styled.div`
   padding: 8px 12px;
   display: flex;

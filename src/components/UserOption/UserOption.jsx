@@ -3,6 +3,7 @@ import { useUserContext } from "../../context/UserProvider"
 import { logOutIcon, userOptionList } from "../../images"
 import { IoMdClose } from 'react-icons/io'
 import { getAuth, signOut } from "firebase/auth"
+import { Link } from "react-router-dom"
 
 
 const UserOption = ({ setShowUserOption }) => {
@@ -25,11 +26,13 @@ const UserOption = ({ setShowUserOption }) => {
       <div className="close-icon" onClick={() => setShowUserOption(false)}>
         <IoMdClose />
       </div>
-      <Header>
-        <img src={user.photoURL} alt={user.displayName} />
-        <h3>{user.displayName}</h3>
-        <p>Trang cá nhân</p>
-      </Header>
+      <Link to="/personal">
+        <Header>
+          <img src={user.photoURL} alt={user.displayName} />
+          <h3>{user.displayName}</h3>
+          <p>Trang cá nhân</p>
+        </Header>
+      </Link>
       <OptionList>
         {userOptionList.map(({ img, text }) => (
           <Option key={text}>

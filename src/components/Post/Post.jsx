@@ -11,7 +11,9 @@ import { db } from '../../firebase/config'
 import Comment from '../Comment/Comment'
 import { timeSince } from '../../utils'
 import { useUserContext } from '../../context/UserProvider'
-import ModalImg from '../ModalImg/ModalImg'
+import Skeleton from 'react-loading-skeleton'
+import "react-loading-skeleton/dist/skeleton.css";
+import { FacebookShareButton } from 'react-share'
 
 const Post = ({ post }) => {
   const { nameAuthor, imgAuthor, image, caption, comments, time, like, id } = post
@@ -21,6 +23,8 @@ const Post = ({ post }) => {
   const [commentList, setCommentList] = useState(comments)
 
   const [likeList, setLikeList] = useState(like)
+
+  console.log(post)
 
   const handleLike = async () => {
     const postRef = doc(db, "posts", id);
@@ -60,7 +64,7 @@ const Post = ({ post }) => {
       <Top>
         <img src={imgAuthor} alt="" />
         <div className="nameAndTime">
-          <h5>{nameAuthor}</h5>
+          <h5>{nameAuthor || <Skeleton />}</h5>
           <p>{timeSince(time)}<GiEarthAsiaOceania /></p>
         </div>
         <div className='more'>
@@ -68,7 +72,7 @@ const Post = ({ post }) => {
         </div>
       </Top >
       <Caption>{caption}</Caption>
-      {image && <Image src={image} />}
+      {< Image src={image} />}
       <LikeAndCmt>
         <div className='like'>
           <div className='icon'>
@@ -87,10 +91,12 @@ const Post = ({ post }) => {
           <BiComment />
           Bình luận
         </Action>
-        <Action>
-          <BiShare />
-          Chia sẻ
-        </Action>
+        <FacebookShareButton url="https://thuyeudac.xyz" quote="Hello everyone" hashtag="#kieudac #frontend #react">
+          <Action>
+            <BiShare />
+            Chia sẻ
+          </Action>
+        </FacebookShareButton>
       </Actions>
       {
         commentList.length !== 0 && <CommentList>

@@ -1,7 +1,9 @@
 import "./App.css";
+
 import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 // import Home from "./pages/Home/Home";
+import hourGlass from "./images/Hourglass.gif";
 import Auth from "./pages/Auth/Auth";
 import Personal from "./pages/Personal/Personal";
 const Home = lazy(() => import("./pages/Home/Home"));
@@ -10,7 +12,13 @@ const Home = lazy(() => import("./pages/Home/Home"));
 
 function App() {
   return (
-    <Suspense fallback={<div>loading</div>}>
+    <Suspense
+      fallback={
+        <div className="loading-screen">
+          <img src={hourGlass} />
+        </div>
+      }
+    >
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/auth" element={<Auth />} />

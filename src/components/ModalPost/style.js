@@ -111,6 +111,10 @@ export const OverLay = styled.div`
 export const PreviewImg = styled.div`
   position: relative;
 
+  img {
+    width: 100%;
+  }
+
   button {
     position: absolute;
     right: 10px;

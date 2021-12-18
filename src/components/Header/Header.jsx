@@ -4,6 +4,7 @@ import logo from '../../images/logo.svg'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { Button, Logo, Nav, NavItem, Search, User, Wrapper } from './style'
 import UserOption from '../UserOption/UserOption'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
   const user = useUserContext()
@@ -11,7 +12,9 @@ const Header = () => {
   return (
     <Wrapper>
       <div className='flex'>
-        <Logo src={logo} alt="logo" />
+        <Link to="/">
+          <Logo src={logo} alt="logo" />
+        </Link>
         <Search>
           <AiOutlineSearch />
           <input type="text" placeholder='Tìm kiếm' />
