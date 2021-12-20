@@ -5,7 +5,6 @@ import { AiOutlineLike, AiFillLike } from 'react-icons/ai'
 import { Action, Actions, Caption, Cmt, CommentList, Image, LikeAndCmt, Top, Wrapper } from './styled'
 import { likeReact } from '../../images'
 import { v4 as uuidv4 } from 'uuid';
-import { useState } from 'react/cjs/react.development'
 import { doc, updateDoc } from 'firebase/firestore'
 import { db } from '../../firebase/config'
 import Comment from '../Comment/Comment'
@@ -14,6 +13,7 @@ import { useUserContext } from '../../context/UserProvider'
 import Skeleton from 'react-loading-skeleton'
 import "react-loading-skeleton/dist/skeleton.css";
 import { FacebookShareButton } from 'react-share'
+import { useState } from 'react'
 
 const Post = ({ post }) => {
   const { nameAuthor, imgAuthor, image, caption, comments, time, like, id } = post
@@ -50,7 +50,7 @@ const Post = ({ post }) => {
   }
 
   const handleCmtMore = () => {
-    return commentList.length > 1 && showMoreCmt === 1 ?
+    return commentList.length > 1 && showMoreCmt == 1 ?
       <div onClick={() => setShowMoreCmt(commentList.length)} className='btn-show'>Xem tất cả bình luận</div>
       :
       <div onClick={() => setShowMoreCmt(1)} className='btn-show'>Ẩn bớt bình luận</div>
