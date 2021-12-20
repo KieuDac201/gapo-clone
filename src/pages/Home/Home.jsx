@@ -5,7 +5,8 @@ import PublishPost from "../../components/PublishPost/PublishPost";
 import Post from '../../components/Post/Post'
 import { NewFeed, Wrapper } from "./style";
 import { getPost } from "../../services";
-import { Link } from 'react-router-dom'
+import SideLeft from "../../components/SideLeft/SideLeft";
+import SideRight from "../../components/SideRight/SideRight";
 
 const Home = () => {
   const [showModal, setShowModal] = useState(false)
@@ -35,6 +36,7 @@ const Home = () => {
     <Wrapper>
       <Header />
       {showModal && <ModalPost handleCloseModal={handleCloseModal} setShowModal={setShowModal} setPosts={setPosts} />}
+      <SideLeft />
       <section className="newFeed">
         <PublishPost setShowModal={setShowModal} />
         <NewFeed>
@@ -45,7 +47,7 @@ const Home = () => {
           }
         </NewFeed>
       </section>
-
+      <SideRight />
     </Wrapper>
   )
 }

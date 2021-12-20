@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
     top: 80px;
     left: 50%;
     transform: translateX(-50%);
-    max-width: 420px;
+    max-width: 450px;
     width: 100%;
     display: flex;
     flex-direction: column;

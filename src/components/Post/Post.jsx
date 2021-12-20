@@ -24,7 +24,6 @@ const Post = ({ post }) => {
 
   const [likeList, setLikeList] = useState(like)
 
-  console.log(post)
 
   const handleLike = async () => {
     const postRef = doc(db, "posts", id);
@@ -45,7 +44,6 @@ const Post = ({ post }) => {
     const data = [...commentList, { id: uuidv4(), time: Date.now(), uid: user.uid, name: user.displayName, img: user.photoURL, comment }]
     setCommentList(data)
     setComment('')
-    console.log(data)
     await updateDoc(postRef, {
       comments: data
     });

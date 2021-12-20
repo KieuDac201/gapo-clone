@@ -2,9 +2,11 @@ import styled from "styled-components"
 import Header from "../../components/Header/Header"
 import { useUserContext } from "../../context/UserProvider"
 import { AiTwotoneSetting } from 'react-icons/ai'
+import { useNavigate } from "react-router-dom"
 
 const Personal = () => {
-  const { displayName, photoURL } = useUserContext()
+  const user = useUserContext()
+
   return (
     <Wrapper>
       <Header />
@@ -13,10 +15,10 @@ const Personal = () => {
           <img src="https://www.gapo.vn/assets/images/default-cover.jpg" alt="" />
         </CoverImage>
         <PicProfile>
-          <img src={photoURL} alt={displayName} />
+          <img src={user.photoURL} alt={user.displayName} />
         </PicProfile>
         <UserInfo>
-          <h3>{displayName}</h3>
+          <h3>{user.displayName}</h3>
           <p>Su tu</p>
         </UserInfo>
         <UserSelect>

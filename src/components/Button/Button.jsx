@@ -25,6 +25,10 @@ const Btn = styled.button`
   outline: none;
   font-weight: 600;
   width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
 
   &:hover{
      background: ${props => (props.dark ? 'rgb(76, 155, 34)' : '#D5EDCA')};

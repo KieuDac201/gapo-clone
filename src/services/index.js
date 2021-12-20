@@ -11,12 +11,20 @@ export const addPost = async (post) => {
   }
 };
 export const addUser = async (user) => {
-  console.log("dac");
   try {
     const docRef = await addDoc(collection(db, "users"), user);
   } catch (e) {
     console.error("Error adding document: ", e);
   }
+};
+
+export const getUser = async () => {
+  const users = [];
+  const querySnapshot = await getDocs(collection(db, "users"));
+  querySnapshot.forEach((doc) => {
+    users.push({ ...doc.data(), idDoc: doc.id });
+  });
+  return users;
 };
 
 export const getPost = async () => {
