@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import PropTypes from 'prop-types';
 
 const Button = ({ children, dark, onClick }) => {
   return (
@@ -11,10 +10,7 @@ const Button = ({ children, dark, onClick }) => {
 
 export default Button
 
-Button.propTypes = {
-  children: PropTypes.string,
-  dark: PropTypes.bool
-};
+
 
 const Btn = styled.button`
   padding: 10px 12px;
