@@ -4,16 +4,17 @@ import { Bottom, Desc, ImageCover, Login, LoginButton, Logo, Title, Wrapper } fr
 
 import { getAuth, signInWithPopup } from "firebase/auth";
 import { provider } from '../../firebase/config';
+import { useNavigate } from 'react-router-dom';
 
 
 const Auth = () => {
+  const navigate = useNavigate()
 
   const login = () => {
     const auth = getAuth();
     signInWithPopup(auth, provider)
       .then((result) => {
-        const user = result.user;
-        console.log(user)
+        navigate("/", { replace: true });
       })
       .catch((error) => {
         console.log(error)

@@ -2,27 +2,29 @@ import { GiEarthAsiaOceania } from 'react-icons/gi'
 import { HiOutlineDotsHorizontal } from 'react-icons/hi'
 import { BiSend, BiComment, BiShare } from 'react-icons/bi'
 import { AiOutlineLike, AiFillLike } from 'react-icons/ai'
+import { doc, updateDoc } from 'firebase/firestore'
+import { FacebookShareButton } from 'react-share'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+
+
 import { Action, Actions, Caption, Cmt, CommentList, Image, LikeAndCmt, Top, Wrapper } from './styled'
 import { likeReact } from '../../images'
 import { v4 as uuidv4 } from 'uuid';
-import { doc, updateDoc } from 'firebase/firestore'
 import { db } from '../../firebase/config'
 import Comment from '../Comment/Comment'
 import { timeSince } from '../../utils'
 import { useUserContext } from '../../context/UserProvider'
-import Skeleton from 'react-loading-skeleton'
-import "react-loading-skeleton/dist/skeleton.css";
-import { FacebookShareButton } from 'react-share'
-import { useState } from 'react'
+import ModalImg from '../ModalImg/ModalImg'
 
 const Post = ({ post }) => {
-  const { nameAuthor, imgAuthor, image, caption, comments, time, like, id } = post
+  const { nameAuthor, imgAuthor, image, caption, comments, time, like, id, uid } = post
   const user = useUserContext()
   const [showMoreCmt, setShowMoreCmt] = useState(1)
   const [comment, setComment] = useState('')
   const [commentList, setCommentList] = useState(comments)
-
   const [likeList, setLikeList] = useState(like)
+  const [isOpenModal, setIsOpenModal] = useState(false)
 
 
   const handleLike = async () => {
@@ -59,10 +61,13 @@ const Post = ({ post }) => {
   return (
     <Wrapper>
 
+      <ModalImg isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal} img={image} />
       <Top>
-        <img src={imgAuthor} alt="" />
+        <Link to={`/personal/${uid}`}>
+          <img src={imgAuthor} alt="" className='logo' />
+        </Link>
         <div className="nameAndTime">
-          <h5>{nameAuthor || <Skeleton />}</h5>
+          <h5>{nameAuthor}</h5>
           <p>{timeSince(time)}<GiEarthAsiaOceania /></p>
         </div>
         <div className='more'>
@@ -70,7 +75,7 @@ const Post = ({ post }) => {
         </div>
       </Top >
       <Caption>{caption}</Caption>
-      {< Image src={image} />}
+      {< Image src={image} onClick={() => setIsOpenModal(true)} />}
       <LikeAndCmt>
         <div className='like'>
           <div className='icon'>

@@ -1,39 +1,54 @@
 import styled from "styled-components";
+import Modal from 'react-modal';
+import { useState } from "react";
 
-const ModalImg = ({ img }) => {
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    padding: '20px',
+    background: 'transparent',
+    border: 'none',
+    maxWidth: '800px',
+    maxHeight: '90vh',
+    overflow: 'hidden',
+    transform: 'translate(-50%, -50%)',
+  },
+  overlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 999,
+    backgroundColor: 'rgba(0, 0, 0, 0.6)'
+  },
+};
+
+// Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
+Modal.setAppElement('#root');
+
+const ModalImg = ({ img, isOpenModal, setIsOpenModal }) => {
+
   return (
-    <Wrapper>
-      <Overlay />
-      <Content>
-        <img src={img} alt="" />
-      </Content>
-    </Wrapper>
+    <Modal style={customStyles} isOpen={isOpenModal} contentLabel="Example Modal" onRequestClose={() => setIsOpenModal(false)}>
+      <img src={img} alt="" onClick={() => setIsOpenModal(false)} />
+    </Modal>
   )
 }
 
 export default ModalImg
 
 export const Wrapper = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  z-index: 999;
+  
 `;
 export const Overlay = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
+  
 `;
 
 export const Content = styled.div`
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+  
 `;

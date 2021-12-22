@@ -1,40 +1,67 @@
 import styled from "styled-components"
 import Header from "../../components/Header/Header"
-import { useUserContext } from "../../context/UserProvider"
+import { userContext, useUserContext } from "../../context/UserProvider"
 import { AiTwotoneSetting } from 'react-icons/ai'
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "../../firebase/config"
+import { getPostWithUid, getUserWithUid } from "../../services"
+import Post from "../../components/Post/Post"
 
 const Personal = () => {
-  const user = useUserContext()
+  const [user, setUser] = useState(null)
+  const [posts, setPosts] = useState([])
+  const { idUser } = useParams()
+
+  useEffect(() => {
+    getUserWithUid(idUser).then(data => setUser(data))
+    getPostWithUid(idUser).then(data => {
+      console.log(data)
+      setPosts(data)
+    })
+  }, [])
+
+  console.log(user)
+
 
   return (
-    <Wrapper>
-      <Header />
-      <div className="user">
-        <CoverImage>
-          <img src="https://www.gapo.vn/assets/images/default-cover.jpg" alt="" />
-        </CoverImage>
-        <PicProfile>
-          <img src={user.photoURL} alt={user.displayName} />
-        </PicProfile>
-        <UserInfo>
-          <h3>{user.displayName}</h3>
-          <p>Su tu</p>
-        </UserInfo>
-        <UserSelect>
-          <ul className="list-select">
-            <li className="active">Dòng thời gian</li>
-            <li>Giới thiệu</li>
-            <li>Bạn bè</li>
-            <li>Ảnh</li>
-            <li>Dòng thời gian</li>
-          </ul>
-          <div className="setting-icon">
-            <AiTwotoneSetting />
-          </div>
-        </UserSelect>
-      </div>
-    </Wrapper>
+    <>
+      <Wrapper>
+        <Header />
+        <div className="user">
+          <CoverImage>
+            <img src="https://www.gapo.vn/assets/images/default-cover.jpg" alt="" />
+          </CoverImage>
+          <PicProfile>
+            <img src={user?.photoURL} alt={user?.displayName} />
+          </PicProfile>
+          <UserInfo>
+            <h3>{user?.displayName}</h3>
+            <p>Su tu</p>
+          </UserInfo>
+          <UserSelect>
+            <ul className="list-select">
+              <li className="active">Dòng thời gian</li>
+              <li>Giới thiệu</li>
+              <li>Bạn bè</li>
+              <li>Ảnh</li>
+              <li>Dòng thời gian</li>
+            </ul>
+            <div className="setting-icon">
+              <AiTwotoneSetting />
+            </div>
+          </UserSelect>
+        </div>
+      </Wrapper>
+      <NewFeed>
+        {
+          posts ? posts.map(post => {
+            return <Post key={post.id} post={post} posts={posts} />
+          }) : <h3 className="no-post">Không có bài viết nào ở đây</h3>
+        }
+      </NewFeed>
+    </>
   )
 }
 
@@ -51,12 +78,15 @@ const Wrapper = styled.div`
   width: 100%;
   }
 `
-const CoverImage = styled.div``
+const CoverImage = styled.div`
+  background: #fff;
+`
 const PicProfile = styled.div`
   display: flex;
   justify-content: center;
   /* transform: translateY(-90%); */
   margin-top: -90px;
+  background: #fff;
   img{
     width: 150px;
   height: 150px;
@@ -93,5 +123,22 @@ const UserSelect = styled.div`
     padding: 8px;
     display: grid;
     place-items: center;
+  }
+`
+const NewFeed = styled.div`
+  position: relative;
+  max-width: 450px;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  .no-post {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transfrom: translate(-50%, -50%);
   }
 `

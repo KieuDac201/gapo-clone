@@ -26,7 +26,7 @@ const UserOption = ({ setShowUserOption }) => {
       <div className="close-icon" onClick={() => setShowUserOption(false)}>
         <IoMdClose />
       </div>
-      <Link to="/personal">
+      <Link to={`/personal/${user.uid}`}>
         <Header>
           <img src={user.photoURL} alt={user.displayName} />
           <h3>{user.displayName}</h3>

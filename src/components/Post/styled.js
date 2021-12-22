@@ -22,7 +22,7 @@ export const Top = styled.div`
   gap: 10px;
   padding: 12px;
 
-  & > img {
+  & .logo {
     width: 37px;
     height: 37px;
     border-radius: 999px;

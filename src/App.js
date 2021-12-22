@@ -22,7 +22,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/auth" element={<Auth />} />
-        <Route path="/personal" element={<Personal />} />
+        <Route path="/personal/:idUser" element={<Personal />} />
       </Routes>
     </Suspense>
   );

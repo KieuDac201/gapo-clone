@@ -1,7 +1,7 @@
 import { createContext, useState, useLayoutEffect, useContext } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { addUser, getUser } from "../services";
+import { addUser, getUser, getUserWithUid } from "../services";
 
 export const userContext = createContext(null);
 
@@ -12,14 +12,10 @@ export const UserProvider = ({ children }) => {
 
   useLayoutEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      console.log("onstagechange");
       if (user) {
         setUser(user);
-        getUser().then((users) => {
-          const isFirstUser = !users.some(
-            (userItem) => userItem.uid === user.uid
-          );
-          if (isFirstUser) {
+        getUserWithUid(user.uid).then((data) => {
+          if (!Object.keys(data).length) {
             addUser({
               uid: user.uid,
               photoURL: user.photoURL,
@@ -27,8 +23,6 @@ export const UserProvider = ({ children }) => {
             });
           }
         });
-
-        navigate("/", { replace: true });
       } else {
         setUser(null);
         navigate("/auth", { replace: true });
