@@ -56,7 +56,7 @@ const ModalPost = ({ handleCloseModal, setShowModal, setPosts }) => {
         setLoading({ loading: false, progress: null })
         addPost(postInfo).then(data => {
           console.log(data)
-          setPosts((prevState) => [...prevState, data])
+          setPosts((prevState) => [data, ...prevState])
           setShowModal(false)
           setLoading({ loading: false, progress: null })
         })
