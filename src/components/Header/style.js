@@ -55,7 +55,7 @@ export const Button = styled.div`
   }
 `;
 
-export const Search = styled.div`
+export const Search = styled.form`
   width: 198px;
   height: 40px;
   position: relative;

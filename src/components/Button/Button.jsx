@@ -25,6 +25,7 @@ const Btn = styled.button`
   align-items: center;
   gap: 8px;
   justify-content: center;
+  white-space: nowrap;
 
   &:hover{
      background: ${props => (props.dark ? 'rgb(76, 155, 34)' : '#D5EDCA')};

@@ -7,6 +7,7 @@ import { NewFeed, Wrapper } from "./style";
 import { getPost } from "../../services";
 import SideLeft from "../../components/SideLeft/SideLeft";
 import SideRight from "../../components/SideRight/SideRight";
+import Layout from "../../components/Layout/Layout";
 
 const Home = () => {
   const [showModal, setShowModal] = useState(false)
@@ -33,22 +34,21 @@ const Home = () => {
   }
 
   return (
-    <Wrapper>
-      <Header />
-      {showModal && <ModalPost handleCloseModal={handleCloseModal} setShowModal={setShowModal} setPosts={setPosts} />}
-      <SideLeft />
-      <section className="newFeed">
-        <PublishPost setShowModal={setShowModal} />
-        <NewFeed>
-          {
-            posts ? posts.map(post => {
-              return <Post key={post.id} post={post} posts={posts} />
-            }) : <h3 className="no-post">Không có bài viết nào ở đây</h3>
-          }
-        </NewFeed>
-      </section>
-      <SideRight />
-    </Wrapper>
+    <Layout>
+      <Wrapper>
+        {showModal && <ModalPost handleCloseModal={handleCloseModal} setShowModal={setShowModal} setPosts={setPosts} />}
+        <section className="newFeed">
+          <PublishPost setShowModal={setShowModal} />
+          <NewFeed>
+            {
+              posts ? posts.map(post => {
+                return <Post key={post.id} post={post} posts={posts} />
+              }) : <h3 className="no-post">Không có bài viết nào ở đây</h3>
+            }
+          </NewFeed>
+        </section>
+      </Wrapper>
+    </Layout>
   )
 }
 

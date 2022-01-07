@@ -56,6 +56,16 @@ export const getUserWithUid = async (uid) => {
   return data;
 };
 
+export const getAllUser = async () => {
+  let data = [];
+  const q = query(collection(db, "users"));
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    data.push(doc.data());
+  });
+  return data;
+};
+
 export const getPostWithUid = async (uid) => {
   let data = [];
   const q = query(collection(db, "posts"), where("uid", "==", uid));

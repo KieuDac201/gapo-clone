@@ -5,19 +5,29 @@ import { AiOutlineSearch } from 'react-icons/ai'
 import { Button, Logo, Nav, NavItem, Search, User, Wrapper } from './style'
 import UserOption from '../UserOption/UserOption'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const Header = () => {
   const user = useUserContext()
   const [showUserOption, setShowUserOption] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+  const naviagte = useNavigate()
+
+  const handleSearch = (e) => {
+    e.preventDefault()
+    naviagte('/search?q=' + searchQuery, { replace: false, state: searchQuery })
+  }
   return (
     <Wrapper>
       <div className='flex'>
         <Link to="/">
           <Logo src={logo} alt="logo" />
         </Link>
-        <Search>
-          <AiOutlineSearch />
-          <input type="text" placeholder='Tìm kiếm' />
+        <Search onSubmit={handleSearch}>
+          <button type='submit'>
+            <AiOutlineSearch />
+          </button>
+          <input type="text" placeholder='Tìm kiếm' value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
         </Search>
       </div>
       <Nav>

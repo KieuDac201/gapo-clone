@@ -6,6 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import hourGlass from "./images/Hourglass.gif";
 import Auth from "./pages/Auth/Auth";
 import Personal from "./pages/Personal/Personal";
+import Search from "./pages/Search/Search";
 const Home = lazy(() => import("./pages/Home/Home"));
 // const Auth = lazy(() => import("./pages/Auth/Auth"));
 // const Personal = lazy(() => import("./pages/Personal/Personal"));
@@ -23,6 +24,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/personal/:idUser" element={<Personal />} />
+        <Route path="/search" element={<Search />} />
       </Routes>
     </Suspense>
   );
