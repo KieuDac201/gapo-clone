@@ -18,20 +18,23 @@ const Chat = () => {
         message,
         displayName: user.displayName,
         photoURL: user.photoURL,
-        uid: user.uid
+        uid: user.uid,
+        time: Date.now()
       });
       setMessage('')
     }
   }
 
   useEffect(() => {
-    const q = query(messageRef);
+    const q = query(messageRef, orderBy('time', 'asc'));
     const unsub = onSnapshot(q, (querySnapshot) => {
       const messages = [];
       querySnapshot.forEach((doc) => {
 
         messages.push({ ...doc.data(), id: doc.id });
       });
+      console.log(messages);
+
       setMessages(messages)
     });
 
