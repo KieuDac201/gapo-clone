@@ -26,7 +26,7 @@ function App() {
         <Route path="/auth" element={<Auth />} />
         <Route path="/personal/:idUser" element={<Personal />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/chat" element={<Chat />} />
+        <Route path="/chat/:idChat" element={<Chat />} />
       </Routes>
     </Suspense>
   );

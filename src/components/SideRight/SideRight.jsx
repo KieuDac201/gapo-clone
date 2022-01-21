@@ -1,37 +1,73 @@
-import { HiUserAdd } from 'react-icons/hi'
-import styled from 'styled-components'
-import Button from '../Button/Button'
+import { useEffect, useState } from "react";
+import { HiUserAdd } from "react-icons/hi";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { useUserContext } from "../../context/UserProvider";
+import { getAllUser } from "../../services";
+import Button from "../Button/Button";
 
 const SideRight = () => {
+  const user = useUserContext();
+  const [allUser, setAllUser] = useState([]);
+  useEffect(() => {
+    getAllUser().then((data) => {
+      setAllUser(data);
+    });
+  }, []);
+
   return (
     <Wrapper>
       <div className="top">
         <h4>
           Tài khoản: 0
-          <svg width="20" height="21" viewBox="0 0 20 21" fill="none" alt="g-coin"><rect y="0.5" width="20" height="20" rx="10" fill="#F3B612"></rect><rect x="2.5" y="3" width="15" height="15" rx="7.5" fill="#FFCC45"></rect><path d="M13.75 8.92188C13.75 8.85156 13.75 8.77344 13.7428 8.70312V4.875H12.4384V5.85156C11.7862 5.24219 10.9312 4.875 10.0036 4.875C7.93116 4.875 6.25 6.6875 6.25 8.92188C6.25 11.1562 7.93116 12.9688 10.0036 12.9688C10.9384 12.9688 11.7935 12.6016 12.4529 11.9844V12.3594C12.4529 13.1172 12.2572 13.7109 11.8659 14.1562C11.4601 14.6094 10.9312 14.8281 10.2283 14.8281C9.1413 14.8281 8.40217 14.3359 7.97464 13.3203H6.57609C6.82246 14.2031 7.27899 14.9062 7.9529 15.4062C8.59783 15.8828 9.36594 16.125 10.2355 16.125C11.4601 16.125 12.4239 15.6406 13.0906 14.6875C13.3659 14.3047 13.5543 13.8438 13.6486 13.3281C13.6848 13.1172 13.7138 12.875 13.7283 12.6172C13.7355 12.5234 13.7355 12.4219 13.7428 11.9062V9.13281C13.75 9.0625 13.75 8.99219 13.75 8.92188ZM10.0036 11.5469C8.6558 11.5469 7.56159 10.3672 7.56159 8.91406C7.56159 7.46094 8.6558 6.28125 10.0036 6.28125C11.3514 6.28125 12.4457 7.46094 12.4457 8.91406C12.4384 10.3672 11.3442 11.5469 10.0036 11.5469Z" fill="white"></path></svg>
+          <svg
+            width="20"
+            height="21"
+            viewBox="0 0 20 21"
+            fill="none"
+            alt="g-coin"
+          >
+            <rect y="0.5" width="20" height="20" rx="10" fill="#F3B612"></rect>
+            <rect
+              x="2.5"
+              y="3"
+              width="15"
+              height="15"
+              rx="7.5"
+              fill="#FFCC45"
+            ></rect>
+            <path
+              d="M13.75 8.92188C13.75 8.85156 13.75 8.77344 13.7428 8.70312V4.875H12.4384V5.85156C11.7862 5.24219 10.9312 4.875 10.0036 4.875C7.93116 4.875 6.25 6.6875 6.25 8.92188C6.25 11.1562 7.93116 12.9688 10.0036 12.9688C10.9384 12.9688 11.7935 12.6016 12.4529 11.9844V12.3594C12.4529 13.1172 12.2572 13.7109 11.8659 14.1562C11.4601 14.6094 10.9312 14.8281 10.2283 14.8281C9.1413 14.8281 8.40217 14.3359 7.97464 13.3203H6.57609C6.82246 14.2031 7.27899 14.9062 7.9529 15.4062C8.59783 15.8828 9.36594 16.125 10.2355 16.125C11.4601 16.125 12.4239 15.6406 13.0906 14.6875C13.3659 14.3047 13.5543 13.8438 13.6486 13.3281C13.6848 13.1172 13.7138 12.875 13.7283 12.6172C13.7355 12.5234 13.7355 12.4219 13.7428 11.9062V9.13281C13.75 9.0625 13.75 8.99219 13.75 8.92188ZM10.0036 11.5469C8.6558 11.5469 7.56159 10.3672 7.56159 8.91406C7.56159 7.46094 8.6558 6.28125 10.0036 6.28125C11.3514 6.28125 12.4457 7.46094 12.4457 8.91406C12.4384 10.3672 11.3442 11.5469 10.0036 11.5469Z"
+              fill="white"
+            ></path>
+          </svg>
         </h4>
-        <button>
-          Mua Dcoin
-        </button>
+        <button>Mua Dcoin</button>
       </div>
       <div className="body">
-        <h5>
-          Danh bạ
-        </h5>
+        <h5>Danh bạ</h5>
         <div className="friend">
-          <svg width="47" height="41" viewBox="0 0 47 41" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.319 28.234L18.961 25.726C23.833 26.833 26.5 25.5 26.5 25.5C24.7544 22.8023 23.7222 19.7056 23.5 16.5V14.774C23.5268 12.7095 22.7721 10.7112 21.3873 9.17985C20.0024 7.64848 18.0898 6.6973 16.033 6.51704C14.9399 6.44405 13.8434 6.59635 12.8116 6.96451C11.7798 7.33266 10.8346 7.90882 10.0346 8.65727C9.23454 9.40572 8.59677 10.3105 8.16079 11.3156C7.7248 12.3206 7.49989 13.4045 7.5 14.5V16.5C7.27783 19.7056 6.2456 22.8023 4.5 25.5C4.5 25.5 7.167 26.833 12.039 25.726L11.681 28.234C11.6275 28.6113 11.4672 28.9655 11.2192 29.2548C10.9712 29.5441 10.6457 29.7565 10.281 29.867L3.638 31.859C3.0201 32.0444 2.47841 32.424 2.09328 32.9415C1.70815 33.4591 1.50011 34.0869 1.5 34.732V39.5H29.5V34.732C29.4999 34.0869 29.2918 33.4591 28.9067 32.9415C28.5216 32.424 27.9799 32.0444 27.362 31.859L20.724 29.867C20.3584 29.7573 20.0318 29.5452 19.7829 29.2559C19.5339 28.9665 19.3729 28.6119 19.319 28.234Z" fill="#E5E5E5" stroke="#808080" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M35.5 39.5001H45.5V32.6001C45.4999 31.9843 45.3103 31.3835 44.957 30.8791C44.6037 30.3748 44.1037 29.9914 43.525 29.7811L35.625 26.9091C35.2835 26.7855 34.982 26.5713 34.753 26.2895C34.524 26.0076 34.376 25.6687 34.325 25.3091L33.819 21.7661C35.2136 21.131 36.3963 20.1085 37.2262 18.8202C38.0561 17.532 38.4983 16.0324 38.5 14.5001V8.57306C38.4992 7.4159 38.0392 6.30636 37.221 5.48812C36.4027 4.66988 35.2932 4.20985 34.136 4.20906L33.007 1.95006C32.9139 1.77459 32.7618 1.63763 32.5776 1.56335C32.3934 1.48907 32.1888 1.48224 32 1.54406L26.612 3.46706C25.9748 3.70309 25.3859 4.05313 24.874 4.50006" stroke="#808080" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-          <h5>Bạn chưa có người bạn nào</h5>
-          <Button dark>
-            <HiUserAdd />
-            Thêm bạn
-          </Button>
+          {allUser &&
+            allUser.map(({ photoURL, uid, displayName }) => {
+              if (uid !== user.uid) {
+                const idParam = (uid + user.uid).split("").sort().join("");
+                return (
+                  <Link to={`/chat/${idParam}`} key={uid}>
+                    <div className="friend-item">
+                      <img src={photoURL} alt={displayName} />
+                      <h5>{displayName}</h5>
+                    </div>
+                  </Link>
+                );
+              }
+            })}
         </div>
       </div>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default SideRight
+export default SideRight;
 
 const Wrapper = styled.div`
   position: fixed;
@@ -45,40 +81,51 @@ const Wrapper = styled.div`
   flex-direction: column;
   display: none;
 
-  @media (min-width:1100px){
+  @media (min-width: 1100px) {
     display: flex;
   }
-  
-  .top{
+
+  .top {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 24px;
 
-    h4{
+    h4 {
       display: flex;
       align-items: center;
       font-size: 15px;
-      svg{
+      svg {
         margin-left: 8px;
       }
     }
-    button{
+    button {
       padding: 6px 12px;
       border: 1px solid #ccc;
       border-radius: 4px;
       font-size: 12px;
     }
   }
-  .body{
-    .friend{
+  .body {
+    .friend {
       display: flex;
-      align-items: center;
       flex-direction: column;
       margin-top: 40px;
-      h5{
+      h5 {
         margin: 12px 0;
+      }
+      .friend-item {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        gap: 10px;
+        img {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          border: 1px solid #ccc;
+        }
       }
     }
   }
-`
+`;
