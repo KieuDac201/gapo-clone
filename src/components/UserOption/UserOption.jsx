@@ -1,23 +1,23 @@
-import styled from "styled-components"
-import { useUserContext } from "../../context/UserProvider"
-import { logOutIcon, userOptionList } from "../../images"
-import { IoMdClose } from 'react-icons/io'
-import { getAuth, signOut } from "firebase/auth"
-import { Link } from "react-router-dom"
-
+import styled from "styled-components";
+import { useUserContext } from "../../context/UserProvider";
+import { logOutIcon, userOptionList } from "../../images";
+import { IoMdClose } from "react-icons/io";
+import { getAuth, signOut } from "firebase/auth";
+import { Link, useNavigate } from "react-router-dom";
 
 const UserOption = ({ setShowUserOption }) => {
-  const user = useUserContext()
+  const user = useUserContext();
   const auth = getAuth();
+  const navigate = useNavigate();
 
   const logOut = () => {
     signOut(auth)
       .then(() => {
-        console.log('log out')
-
+        console.log("log out");
+        navigate("/auth", { replace: true });
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
       });
   };
 
@@ -46,40 +46,39 @@ const UserOption = ({ setShowUserOption }) => {
         </Option>
       </OptionList>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default UserOption
+export default UserOption;
 
 const Wrapper = styled.div`
   padding: 20px;
   border-radius: 5px;
-  box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
   background: #fff;
   position: relative;
 
-  .close-icon{
+  .close-icon {
     position: absolute;
     top: 10px;
     right: 10px;
     font-size: 22px;
     cursor: pointer;
   }
-`
+`;
 const Header = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
 
-  img{
-    width : 80px;
+  img {
+    width: 80px;
     height: 80px;
     border-radius: 50%;
   }
-`
-const OptionList = styled.div`
-`
+`;
+const OptionList = styled.div``;
 const Option = styled.div`
   display: flex;
   align-items: center;
@@ -88,11 +87,11 @@ const Option = styled.div`
   margin-top: 12px;
   cursor: pointer;
 
-  img{
+  img {
     width: 24px;
     height: 24px;
   }
-  p{
+  p {
     font-size: 14px;
   }
-`
+`;

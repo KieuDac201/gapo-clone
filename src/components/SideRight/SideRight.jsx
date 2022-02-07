@@ -49,8 +49,8 @@ const SideRight = () => {
         <div className="friend">
           {allUser &&
             allUser.map(({ photoURL, uid, displayName }) => {
-              if (uid !== user.uid) {
-                const idParam = (uid + user.uid).split("").sort().join("");
+              if (uid !== user?.uid) {
+                const idParam = (uid + user?.uid).split("").sort().join("");
                 return (
                   <Link to={`/chat/${idParam}`} key={uid}>
                     <div className="friend-item">
