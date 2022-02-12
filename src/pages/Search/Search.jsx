@@ -38,9 +38,6 @@ const Search = () => {
                 onClick={() => changeToPersonal(uid)}
               />
               <h4 onClick={() => changeToPersonal(uid)}>{displayName}</h4>
-              <span>
-                <Button dark>Add freind</Button>
-              </span>
             </SearchItem>
           ))
         ) : (
@@ -55,6 +52,7 @@ export default Search;
 
 const Wrapper = styled.div`
   max-width: 450px;
+
   width: 100%;
   position: relative;
   top: 90px;
