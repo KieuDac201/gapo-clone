@@ -17,7 +17,7 @@ function App() {
     <Suspense
       fallback={
         <div className="loading-screen">
-          <img src={hourGlass} />
+          <img src={hourGlass} style={{width: "30px"}}/>
         </div>
       }
     >

@@ -27,7 +27,7 @@ const Auth = () => {
         <Logo src={logo} alt="logo" />
         <Title>Xin chào Gapoer!</Title>
         <LoginButton onClick={login}>
-          <img src={fbLogo} alt="facebook logo" />
+          <img src={fbLogo} alt="facebook logo" style={{width: '30px'}}/>
           <strong>Đăng nhập với Facebook</strong>
         </LoginButton>
         <Desc>
