@@ -35,6 +35,7 @@ const ModalPost = ({ handleCloseModal, setShowModal, setPosts }) => {
     setImgPreview(null)
   }
 
+
   const handleSubmit = async () => {
     if (loading.loading) {
       return
@@ -64,6 +65,7 @@ const ModalPost = ({ handleCloseModal, setShowModal, setPosts }) => {
         const storage = getStorage();
         const storageRef = ref(storage, `images/${fileImage.name}`);
         const uploadTask = uploadBytesResumable(storageRef, fileImage);
+        
 
         uploadTask.on('state_changed',
           (snapshot) => {

@@ -41,7 +41,7 @@ const Home = () => {
           <PublishPost setShowModal={setShowModal} />
           <NewFeed>
             {
-              posts ? posts.map(post => {
+              posts ? posts.sort((a, b) => b.time - a.time).map(post => {
                 return <Post key={post.id} post={post} posts={posts} />
               }) : <h3 className="no-post">Không có bài viết nào ở đây</h3>
             }
